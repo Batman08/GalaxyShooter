@@ -194,7 +194,9 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("PowerUp"))
+        bool BulletPowerUp = (other.CompareTag("PowerUp"));
+        bool MissilePowerUp = (other.CompareTag("MissilePowerUp"));
+        if (BulletPowerUp)
         {
             PowerUpSound.Play();
 
@@ -217,7 +219,7 @@ public class PlayerController : MonoBehaviour
             //PowerUpSound.Play();
         }
 
-        if (other.CompareTag("MissilePowerUp"))
+        else if (MissilePowerUp)
         {
             PowerUpSound.Play();
             MissileLauncher.SetActive(value: true);

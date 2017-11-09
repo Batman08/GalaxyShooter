@@ -242,6 +242,7 @@
     <Compile Include="Assets\Asssets\Scripts\MoverScripts\RandomRotator.cs" />
     <Compile Include="Assets\Asssets\Scripts\ShipControllers\EvasiveManeuver.cs" />
     <Compile Include="Assets\Asssets\Scripts\ShipControllers\PlayerController.cs" />
+    <Compile Include="Assets\Asssets\Scripts\WeaponControllers\ForceField.cs" />
     <Compile Include="Assets\Asssets\Scripts\WeaponControllers\Missile.cs" />
     <Compile Include="Assets\Asssets\Scripts\WeaponControllers\MissileLauncher.cs" />
     <Compile Include="Assets\Asssets\Scripts\WeaponControllers\WeaponController.cs" />

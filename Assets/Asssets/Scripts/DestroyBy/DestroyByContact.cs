@@ -57,7 +57,14 @@ public class DestroyByContact : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Boundary") || other.CompareTag("Enemy") || other.CompareTag("PowerUp") || other.CompareTag("MissilePowerUp"))
+        bool Boundary = (other.CompareTag("Boundary"));
+        bool Enemy = (other.CompareTag("Enemy"));
+        bool PowerUp = (other.CompareTag("PowerUp"));
+        bool MissilePowerUp = (other.CompareTag("MissilePowerUp"));
+        bool Player = (other.tag == "Player");
+        bool ForceField = (other.tag == "ForceField");
+
+        if (Boundary || Enemy || PowerUp || MissilePowerUp /*|| ForceField*/)
         {
             return;
         }
@@ -80,7 +87,7 @@ public class DestroyByContact : MonoBehaviour
             }
         }
 
-        if (other.tag == "Player")
+        if (Player)
         {
             Instantiate(playerExplosion, other.transform.position, other.transform.rotation);
             //Destroy(other.gameObject);
