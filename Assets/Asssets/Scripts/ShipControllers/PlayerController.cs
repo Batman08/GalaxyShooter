@@ -31,24 +31,23 @@ public class PlayerController : MonoBehaviour
     [Header("Bullets")]
     public GameObject MissileLauncher;
     public GameObject shot;
+    public GameObject Shield;
+
     [Space]
     [Header("All Shot Spawns")]
-    public Transform shotSpawns;
-    public Transform shotSpawns2;
-    public Transform shotSpawns3;
-    public Transform shotSpawns4;
-    public Transform shotSpawns5;
+    public Transform[] ShotSpawns;
 
     public AudioSource PowerUpSound;
 
     public bool _doubleShots;
     public bool _moreShots;
+    public bool HaveShield = false;
 
     [HideInInspector]
     public bool canShoot = true;
     private Quaternion calibrationQuaternion;
-    Rigidbody rb;
-    Vector3 pos;
+    private Rigidbody rb;
+    private Vector3 pos;
 
     void OnEnable()
     {
@@ -59,8 +58,6 @@ public class PlayerController : MonoBehaviour
         _moreShots = false;
         MissileLauncher.SetActive(value: false);
         Physics.IgnoreLayerCollision(8, 13);
-        //TouchPad = FindObjectOfType<TouchPad>();
-        //    InvokeRepeating("UpdateShotSpeed", 0, 15);
     }
 
     void Update()
@@ -69,6 +66,11 @@ public class PlayerController : MonoBehaviour
         {
             Shoot();
             MoreShots();
+        }
+
+        else if (HaveShield)
+        {
+            GivePlayerShield();
         }
 
     }
@@ -84,15 +86,15 @@ public class PlayerController : MonoBehaviour
         if (_doubleShots && canShoot)
         {
             nextFire = Time.time + fireRate;
-            Instantiate(shot, shotSpawns2.position, shotSpawns2.rotation);
-            Instantiate(shot, shotSpawns3.position, shotSpawns3.rotation);
+            Instantiate(shot, ShotSpawns[1].position, ShotSpawns[1].rotation);
+            Instantiate(shot, ShotSpawns[2].position, ShotSpawns[2].rotation);
         }
 
         if (_moreShots && canShoot)
         {
             nextFire = Time.time + fireRate;
-            Instantiate(shot, shotSpawns4.position, shotSpawns4.rotation);
-            Instantiate(shot, shotSpawns5.position, shotSpawns5.rotation);
+            Instantiate(shot, ShotSpawns[3].position, ShotSpawns[3].rotation);
+            Instantiate(shot, ShotSpawns[4].position, ShotSpawns[4].rotation);
         }
 
 
@@ -118,7 +120,7 @@ public class PlayerController : MonoBehaviour
         if (canShoot)
         {
             nextFire = Time.time + fireRate;
-            Instantiate(shot, shotSpawns.position, shotSpawns.rotation);
+            Instantiate(shot, ShotSpawns[0].position, ShotSpawns[0].rotation);
             //foreach (Transform shotSpawn in shotSpawns)
             //{
             //    Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
@@ -186,50 +188,18 @@ public class PlayerController : MonoBehaviour
         return fixedAcceleration;
     }
 
-    IEnumerator TakeLauncherAway(float time)
+    public IEnumerator TakeLauncherAway(float time)
     {
         yield return new WaitForSeconds(time);
         MissileLauncher.SetActive(value: false);
     }
 
-    void OnTriggerEnter(Collider other)
+    public void GivePlayerShield()
     {
-        bool BulletPowerUp = (other.CompareTag("PowerUp"));
-        bool MissilePowerUp = (other.CompareTag("MissilePowerUp"));
-        if (BulletPowerUp)
-        {
-            PowerUpSound.Play();
-
-            if (_moreShots == true)
-            {
-                GameManager.instance.AddScore(2);
-            }
-
-            if (_doubleShots == true)
-            {
-                _moreShots = true;
-                Destroy(other.gameObject);
-                return;
-            }
-
-            _doubleShots = true;
-
-            Destroy(other.gameObject);
-
-            //PowerUpSound.Play();
-        }
-
-        else if (MissilePowerUp)
-        {
-            PowerUpSound.Play();
-            MissileLauncher.SetActive(value: true);
-            StartCoroutine(TakeLauncherAway(18));
-            Destroy(other.gameObject);
-        }
-
-        //void UpdateShotSpeed()
-        //{
-        //    fireRate -= .01f;
-        //}
+        Instantiate(Shield, transform);
+    }
+    public void ForceField()
+    {
+        HaveShield = true;
     }
 }

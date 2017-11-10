@@ -5,14 +5,21 @@ using UnityEngine;
 public class ForceField : MonoBehaviour
 {
     public int Health;
+    public bool hasShield = false;
 
     private int _startHealth = 10;
+
     void Start()
     {
         Health = _startHealth;
     }
 
     void Update()
+    {
+        CheckHealth();
+    }
+
+    void CheckHealth()
     {
         bool NoHealth = (Health <= 0);
         if (NoHealth)

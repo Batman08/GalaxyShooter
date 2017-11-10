@@ -13,16 +13,20 @@ public class DestroyByContact : MonoBehaviour
     [Space]
     public int scoreValue;
     public int MaxPowerUps = 3;
-    private GameManager gameController;
-    //private bool canInsantiate = false;
     public int RandomPowerUp;
     public int RandomPowerUpNum;
     public int RandomPowerUpNum2;
-    //private bool isDead = false;
+
+    private GameObject gameControllerObj;
+    private GameObject sheildObj;
+
+    private GameManager gameController;
+    private ForceField _sheild;
 
     void Start()
     {
-        GameObject gameControllerObj = GameObject.FindWithTag("GameManager");
+        sheildObj = GameObject.FindWithTag("ForceField");
+        gameControllerObj = GameObject.FindWithTag("GameManager");
         if (gameControllerObj != null)
         {
             gameController = gameControllerObj.GetComponent<GameManager>();
@@ -31,6 +35,11 @@ public class DestroyByContact : MonoBehaviour
         {
             Debug.Log("Cannot find 'GameController' script");
         }
+
+        _sheild = FindObjectOfType<ForceField>();
+
+
+
         Physics.IgnoreLayerCollision(10, 10);
 
         RandomPowerUp = Random.Range(0, PowerUps.Length/* - 1*/);
@@ -64,10 +73,8 @@ public class DestroyByContact : MonoBehaviour
         bool Player = (other.tag == "Player");
         bool ForceField = (other.tag == "ForceField");
 
-        if (Boundary || Enemy || PowerUp || MissilePowerUp /*|| ForceField*/)
-        {
+        if (Boundary || Enemy || PowerUp || MissilePowerUp)
             return;
-        }
 
         if (explosion != null)
         {
@@ -87,19 +94,18 @@ public class DestroyByContact : MonoBehaviour
             }
         }
 
+        if (ForceField)
+            _sheild.Health--;
+
         if (Player)
-        {
             Instantiate(playerExplosion, other.transform.position, other.transform.rotation);
-            //Destroy(other.gameObject);
-            //gameController.GameOver();
-        }
 
         else
-        {
             gameController.AddScore(scoreValue);
-        }
 
-        Destroy(other.gameObject);
+        if (sheildObj == null)
+            Destroy(other.gameObject);
+
         Destroy(gameObject);
     }
 }
