@@ -27,18 +27,17 @@ public class DestroyByContact : MonoBehaviour
     {
         sheildObj = GameObject.FindWithTag("ForceField");
         gameControllerObj = GameObject.FindWithTag("GameManager");
+
+        //Game Manager instance
         if (gameControllerObj != null)
         {
             gameController = gameControllerObj.GetComponent<GameManager>();
         }
+
         if (gameController == null)
         {
             Debug.Log("Cannot find 'GameController' script");
         }
-
-        _sheild = FindObjectOfType<ForceField>();
-
-
 
         Physics.IgnoreLayerCollision(10, 10);
 
@@ -71,7 +70,7 @@ public class DestroyByContact : MonoBehaviour
         bool PowerUp = (other.CompareTag("PowerUp"));
         bool MissilePowerUp = (other.CompareTag("MissilePowerUp"));
         bool Player = (other.tag == "Player");
-        bool ForceField = (other.tag == "ForceField");
+        bool Shield = (other.tag == "ForceField");
 
         if (Boundary || Enemy || PowerUp || MissilePowerUp)
             return;
@@ -94,8 +93,8 @@ public class DestroyByContact : MonoBehaviour
             }
         }
 
-        if (ForceField)
-            _sheild.Health--;
+        if (Shield)
+            ForceField.instnace.Health--;
 
         if (Player)
             Instantiate(playerExplosion, other.transform.position, other.transform.rotation);

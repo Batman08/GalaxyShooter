@@ -41,13 +41,17 @@ public class PlayerController : MonoBehaviour
 
     public bool _doubleShots;
     public bool _moreShots;
-    public bool HaveShield = false;
 
     [HideInInspector]
     public bool canShoot = true;
     private Quaternion calibrationQuaternion;
     private Rigidbody rb;
     private Vector3 pos;
+
+    void Start()
+    {
+        Shield.SetActive(value: false);
+    }
 
     void OnEnable()
     {
@@ -68,10 +72,10 @@ public class PlayerController : MonoBehaviour
             MoreShots();
         }
 
-        else if (HaveShield)
-        {
-            GivePlayerShield();
-        }
+        //else if (HaveShield)
+        //{
+        //    GivePlayerShield();
+        //}
 
     }
 
@@ -196,10 +200,7 @@ public class PlayerController : MonoBehaviour
 
     public void GivePlayerShield()
     {
-        Instantiate(Shield, transform);
-    }
-    public void ForceField()
-    {
-        HaveShield = true;
+        Shield.SetActive(value: true);
+        Debug.Log("Player has Shield");
     }
 }

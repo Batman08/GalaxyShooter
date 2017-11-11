@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class ForceField : MonoBehaviour
 {
+    public static ForceField instnace;
+
     public int Health;
-    public bool hasShield = false;
 
     private int _startHealth = 10;
 
-    void Start()
+    void OnEnable()
     {
+        instnace = this;
         Health = _startHealth;
     }
 
@@ -35,7 +37,6 @@ public class ForceField : MonoBehaviour
 
         if (Enemy || EnemyBolt)
         {
-            Health--;
             Destroy(collision.collider.gameObject);
         }
     }
