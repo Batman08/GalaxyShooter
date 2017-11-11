@@ -26,7 +26,7 @@ public class PlayAd : MonoBehaviour
                 Debug.Log("Player skipped ad");
                 break;
             case ShowResult.Finished:
-                PlayerController.Player._doubleShots = true;
+                PlayerController.Player.DoubleShots = true;
                 break;
             default:
                 break;

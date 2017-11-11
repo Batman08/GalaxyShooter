@@ -39,8 +39,9 @@ public class PlayerController : MonoBehaviour
 
     public AudioSource PowerUpSound;
 
-    public bool _doubleShots;
-    public bool _moreShots;
+    public bool DoubleShots;
+    public bool MaxShots;
+    public bool enableShield;
 
     [HideInInspector]
     public bool canShoot = true;
@@ -50,7 +51,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        Shield.SetActive(value: false);
+       // Shield.SetActive(value: false);
     }
 
     void OnEnable()
@@ -58,19 +59,25 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         CalibrateAccelerometer();
         Player = this;
-        _doubleShots = false;
-        _moreShots = false;
+        DoubleShots = false;
+        MaxShots = false;
         MissileLauncher.SetActive(value: false);
         Physics.IgnoreLayerCollision(8, 13);
     }
 
     void Update()
     {
+        if (enableShield)
+        {
+            Shield.SetActive(value: true);
+        }
+
         if (Input.GetButton("Fire1") && Time.time > nextFire)
         {
             Shoot();
             MoreShots();
         }
+
 
         //else if (HaveShield)
         //{
@@ -87,14 +94,14 @@ public class PlayerController : MonoBehaviour
         //    return;
         //}
 
-        if (_doubleShots && canShoot)
+        if (DoubleShots && canShoot)
         {
             nextFire = Time.time + fireRate;
             Instantiate(shot, ShotSpawns[1].position, ShotSpawns[1].rotation);
             Instantiate(shot, ShotSpawns[2].position, ShotSpawns[2].rotation);
         }
 
-        if (_moreShots && canShoot)
+        if (MaxShots && canShoot)
         {
             nextFire = Time.time + fireRate;
             Instantiate(shot, ShotSpawns[3].position, ShotSpawns[3].rotation);
@@ -200,7 +207,11 @@ public class PlayerController : MonoBehaviour
 
     public void GivePlayerShield()
     {
-        Shield.SetActive(value: true);
-        Debug.Log("Player has Shield");
+        enableShield = true;
+
+        if (enableShield)
+        {
+            Debug.Log("Player has Shield");
+        }
     }
 }

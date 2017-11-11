@@ -19,19 +19,19 @@ public class PlayerCollisions : MonoBehaviour
         {
             _player.PowerUpSound.Play();
 
-            if (_player._moreShots == true)
+            if (_player.MaxShots == true)
             {
                 GameManager.instance.AddScore(2);
             }
 
-            if (_player._doubleShots == true)
+            if (_player.DoubleShots == true)
             {
-                _player._moreShots = true;
+                _player.MaxShots = true;
                 Destroy(other.gameObject);
                 return;
             }
 
-            _player._doubleShots = true;
+            _player.DoubleShots = true;
 
             Destroy(other.gameObject);
 
