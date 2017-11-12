@@ -41,18 +41,12 @@ public class PlayerController : MonoBehaviour
 
     public bool DoubleShots;
     public bool MaxShots;
-    public bool enableShield;
 
     [HideInInspector]
     public bool canShoot = true;
     private Quaternion calibrationQuaternion;
     private Rigidbody rb;
     private Vector3 pos;
-
-    void Start()
-    {
-       // Shield.SetActive(value: false);
-    }
 
     void OnEnable()
     {
@@ -67,22 +61,11 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (enableShield)
-        {
-            Shield.SetActive(value: true);
-        }
-
         if (Input.GetButton("Fire1") && Time.time > nextFire)
         {
             Shoot();
             MoreShots();
         }
-
-
-        //else if (HaveShield)
-        //{
-        //    GivePlayerShield();
-        //}
 
     }
 
@@ -203,15 +186,5 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         MissileLauncher.SetActive(value: false);
-    }
-
-    public void GivePlayerShield()
-    {
-        enableShield = true;
-
-        if (enableShield)
-        {
-            Debug.Log("Player has Shield");
-        }
     }
 }

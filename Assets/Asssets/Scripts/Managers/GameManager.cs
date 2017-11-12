@@ -185,6 +185,7 @@ public class GameManager : MonoBehaviour
     public void GoToMenu()
     {
         SceneManager.LoadScene(0);
+        Time.timeScale = 1;
         bool ScoreIsGreaterThanHighScore = (PlayerPrefs.GetInt("score") < score);
         if (ScoreIsGreaterThanHighScore)
         {

@@ -73,7 +73,9 @@ public class DestroyByContact : MonoBehaviour
         bool Shield = (other.tag == "ForceField");
 
         if (Boundary || Enemy || PowerUp || MissilePowerUp)
+        {
             return;
+        }
 
         if (explosion != null)
         {
@@ -93,17 +95,22 @@ public class DestroyByContact : MonoBehaviour
             }
         }
 
-        if (Shield)
-            ForceField.instnace.Health--;
+        //if (Shield)
+        //    ForceField.instnace.Health--;
 
         if (Player)
+        {
             Instantiate(playerExplosion, other.transform.position, other.transform.rotation);
+            Destroy(other.gameObject);
+        }
 
         else
+        {
             gameController.AddScore(scoreValue);
+        }
 
-        if (sheildObj == null)
-            Destroy(other.gameObject);
+        //if (sheildObj == null)
+        //    Destroy(other.gameObject);
 
         Destroy(gameObject);
     }
