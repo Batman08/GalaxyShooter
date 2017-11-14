@@ -13,27 +13,45 @@ public class MissileLauncher : MonoBehaviour
     public float FireRate = 1f;
     public string EnemyTag = "Enemy";
 
+    [Header("Use Laser")]
+    public bool UseLaser = false;
+    public LineRenderer LineRenderer;
+
     private float FireCountDown = 0f;
 
     void Start()
     {
+        UseLaser = true;
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
     }
 
     void Update()
     {
         if (Target == null)
-            return;
-
-        Vector3 dir = Target.position - transform.position;
-        Quaternion lookRotation = Quaternion.LookRotation(dir);
-        Vector3 rotation = Quaternion.Lerp(PartToRotate.rotation, lookRotation, Time.deltaTime * TurnSpeed).eulerAngles;
-        PartToRotate.rotation = Quaternion.Euler(0f, rotation.y, 0f);
-
-        if (FireCountDown <= 0f)
         {
-            Shoot();
-            FireCountDown = 1f / FireRate;
+            if (UseLaser)
+            {
+                if (LineRenderer.enabled)
+                    LineRenderer.enabled = false;
+            }
+
+            return;
+        }
+
+        LockOnTarget();
+
+        if (UseLaser)
+        {
+            Laser();
+        }
+
+        else
+        {
+            if (FireCountDown <= 0f)
+            {
+                Shoot();
+                FireCountDown = 1f / FireRate;
+            }
         }
 
         FireCountDown -= Time.deltaTime;
@@ -58,6 +76,25 @@ public class MissileLauncher : MonoBehaviour
         {
             Target = nearestEnemy.transform;
         }
+    }
+
+    void LockOnTarget()
+    {
+        Vector3 dir = Target.position - transform.position;
+        Quaternion lookRotation = Quaternion.LookRotation(dir);
+        Vector3 rotation = Quaternion.Lerp(PartToRotate.rotation, lookRotation, Time.deltaTime * TurnSpeed).eulerAngles;
+        PartToRotate.rotation = Quaternion.Euler(0f, rotation.y, 0f);
+    }
+
+    void Laser()
+    {
+        if (!LineRenderer.enabled)
+        {
+            LineRenderer.enabled = true;
+        }
+
+        LineRenderer.SetPosition(0, FirePoint.position);
+        LineRenderer.SetPosition(1, Target.position);
     }
 
     void Shoot()

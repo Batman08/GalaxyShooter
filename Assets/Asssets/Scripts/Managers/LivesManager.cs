@@ -10,7 +10,8 @@ public class LivesManager : MonoBehaviour
 
     private GameObject _playerInstance;
     private float _respawnTimer = 1f;
-    private int numLives = 4;
+    [HideInInspector]
+    public int numLives = 4;
     private bool _isDead = false;
 
 
@@ -42,7 +43,7 @@ public class LivesManager : MonoBehaviour
 
     }
 
-    void SpawnPlayer()
+    public void SpawnPlayer()
     {
         numLives--;
         _respawnTimer = 2;

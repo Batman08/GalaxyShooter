@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using UnityEngine.Advertisements;
 using UnityEngine.UI;
 using UnityEngine;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -46,14 +48,16 @@ public class GameManager : MonoBehaviour
     private bool gameOver;
     [HideInInspector]
     public int score;
-    private System.DateTime startTime;
+    private DateTime startTime;
     [HideInInspector]
     public int _generatePowerUp;
     private int _allHazards;
+    private LivesManager _livesManager;
 
     void Awake() /*TODO: Add red enemy ship*/
     {
         instance = this;
+        _livesManager = GetComponent<LivesManager>();
         backGroundAudioSource = GetComponent<AudioSource>();
         restartBtn.SetActive(false);
         backBtn.SetActive(false);
@@ -62,6 +66,7 @@ public class GameManager : MonoBehaviour
         gameOver = false;
         gameOverText.text = "";
         score = 0;
+        Advertisement.Initialize("1567637");
     }
 
     void Start()
@@ -74,7 +79,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         UpdateScore();
         StartCoroutine(SpawnWaves());
-        startTime = System.DateTime.Now;
+        startTime = DateTime.Now;
         yield return new WaitForSeconds(startWait);
         HideWaveCount();
     }
@@ -82,7 +87,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         _allHazards = hazards.Length;
-        _generatePowerUp = Random.Range(0, _allHazards);
+        _generatePowerUp = UnityEngine.Random.Range(0, _allHazards);
 
         //   Debug.Log(_generatePowerUp);
 
@@ -99,8 +104,8 @@ public class GameManager : MonoBehaviour
         {
             for (int i = 0; i < hazardCount; i++)
             {
-                GameObject hazard = hazards[Random.Range(0, hazards.Length)];
-                Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
+                GameObject hazard = hazards[UnityEngine.Random.Range(0, hazards.Length)];
+                Vector3 spawnPosition = new Vector3(UnityEngine.Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
                 Quaternion spawnRotation = Quaternion.identity;
                 Instantiate(hazard, spawnPosition, spawnRotation);
                 yield return new WaitForSeconds(spawnWait);
@@ -223,5 +228,26 @@ public class GameManager : MonoBehaviour
     public void DisableMusic()
     {
         backGroundAudioSource.mute = !backGroundAudioSource.mute;
+    }
+
+    void Revive(ShowResult sr)
+    {
+        if (sr == ShowResult.Finished)
+        {
+            gameOver = false;
+            _livesManager.numLives = 1;
+            _livesManager.SpawnPlayer();
+            StartCoroutine(SpawnWaves());
+        }
+    }
+
+    public void RequestRevive()
+    {
+        ShowOptions so = new ShowOptions
+        {
+            resultCallback = Revive
+        };
+
+        Advertisement.Show("rewardedVideo", so);
     }
 }

@@ -18,14 +18,14 @@ public class DestroyByContact : MonoBehaviour
     public int RandomPowerUpNum2;
 
     private GameObject gameControllerObj;
-    private GameObject sheildObj;
+    //private GameObject sheildObj;
 
     private GameManager gameController;
     private ForceField _sheild;
 
     void Start()
     {
-        sheildObj = GameObject.FindWithTag("ForceField");
+        //  sheildObj = GameObject.FindWithTag("ForceField");
         gameControllerObj = GameObject.FindWithTag("GameManager");
 
         //Game Manager instance
