@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
     [Space]
     [Header("Bullets")]
     public GameObject MissileLauncher;
+    public GameObject LaserBeam;
     public GameObject shot;
     public GameObject Shield;
 
@@ -55,6 +56,7 @@ public class PlayerController : MonoBehaviour
         Player = this;
         DoubleShots = false;
         MaxShots = false;
+        LaserBeam.SetActive(value: false);
         MissileLauncher.SetActive(value: false);
         Physics.IgnoreLayerCollision(8, 13);
     }

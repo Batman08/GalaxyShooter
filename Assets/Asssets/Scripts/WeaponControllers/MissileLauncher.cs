@@ -15,13 +15,16 @@ public class MissileLauncher : MonoBehaviour
 
     [Header("Use Laser")]
     public bool UseLaser = false;
+    public float SlowAmount = 10.5f;
     public LineRenderer LineRenderer;
+    public ParticleSystem ImpactEffect;
 
     private float FireCountDown = 0f;
+    private Mover targetEnemy;
 
     void Start()
     {
-        UseLaser = true;
+        targetEnemy = FindObjectOfType<Mover>();
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
     }
 
@@ -32,7 +35,10 @@ public class MissileLauncher : MonoBehaviour
             if (UseLaser)
             {
                 if (LineRenderer.enabled)
+                {
                     LineRenderer.enabled = false;
+                    ImpactEffect.Stop();
+                }
             }
 
             return;
@@ -49,6 +55,7 @@ public class MissileLauncher : MonoBehaviour
         {
             if (FireCountDown <= 0f)
             {
+                UseLaser = false;
                 Shoot();
                 FireCountDown = 1f / FireRate;
             }
@@ -75,6 +82,12 @@ public class MissileLauncher : MonoBehaviour
         if (nearestEnemy != null && shortestDistance <= Range)
         {
             Target = nearestEnemy.transform;
+            targetEnemy = nearestEnemy.GetComponent<Mover>();
+        }
+
+        else
+        {
+            Target = null;
         }
     }
 
@@ -88,13 +101,21 @@ public class MissileLauncher : MonoBehaviour
 
     void Laser()
     {
+        targetEnemy.Slow();
+
         if (!LineRenderer.enabled)
         {
             LineRenderer.enabled = true;
+            ImpactEffect.Play();
         }
 
         LineRenderer.SetPosition(0, FirePoint.position);
         LineRenderer.SetPosition(1, Target.position);
+
+        Vector3 dir = FirePoint.position - Target.position;
+
+        ImpactEffect.transform.position = Target.position/* + dir.normalized * 0.5f*/;
+        // ImpactEffect.transform.rotation = Quaternion.LookRotation(dir);
     }
 
     void Shoot()
