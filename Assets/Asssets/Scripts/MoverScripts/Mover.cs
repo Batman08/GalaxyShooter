@@ -4,6 +4,7 @@ using System.Collections;
 public class Mover : MonoBehaviour
 {
     public float Speed;
+    private float _minSpeed = -0.5f;
 
     private Rigidbody rb;
 
@@ -16,9 +17,17 @@ public class Mover : MonoBehaviour
         Physics.IgnoreLayerCollision(12, 13);
     }
 
+    private void Update()
+    {
+        if (Speed < _minSpeed)
+        {
+            Speed = _minSpeed;
+        }
+    }
+
     public void Slow()
     {
-        rb.velocity = transform.forward * 0;
+       // rb.velocity += Vector3.zero / +0.2f/*transform.forward * 1*/;
         // gameObject.GetComponent<Mover>().enabled = false;
     }
 }

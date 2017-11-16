@@ -70,7 +70,7 @@ public class DestroyByContact : MonoBehaviour
         bool PowerUp = (other.CompareTag("PowerUp"));
         bool MissilePowerUp = (other.CompareTag("MissilePowerUp"));
         bool Player = (other.tag == "Player");
-        bool Shield = (other.tag == "ForceField");
+        //bool Shield = (other.tag == "ForceField");
 
         if (Boundary || Enemy || PowerUp || MissilePowerUp)
         {

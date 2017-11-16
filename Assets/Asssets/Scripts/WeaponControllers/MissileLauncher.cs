@@ -112,8 +112,6 @@ public class MissileLauncher : MonoBehaviour
         LineRenderer.SetPosition(0, FirePoint.position);
         LineRenderer.SetPosition(1, Target.position);
 
-        Vector3 dir = FirePoint.position - Target.position;
-
         ImpactEffect.transform.position = Target.position/* + dir.normalized * 0.5f*/;
         // ImpactEffect.transform.rotation = Quaternion.LookRotation(dir);
     }

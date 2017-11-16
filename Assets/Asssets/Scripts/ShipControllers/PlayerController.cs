@@ -189,4 +189,9 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(time);
         MissileLauncher.SetActive(value: false);
     }
+    public IEnumerator TakeBeamAway(float time)
+    {
+        yield return new WaitForSeconds(time);
+        LaserBeam.SetActive(value: false);
+    }
 }

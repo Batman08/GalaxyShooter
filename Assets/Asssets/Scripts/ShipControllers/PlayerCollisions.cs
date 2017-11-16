@@ -5,12 +5,12 @@ using UnityEngine;
 public class PlayerCollisions : MonoBehaviour
 {
     private PlayerController _player;
-    private MissileLauncher _launcher;
+    //private MissileLauncher _launcher;
 
     void Start()
     {
         _player = GetComponent<PlayerController>();
-        _launcher = GetComponent<MissileLauncher>();
+        //_launcher = GetComponent<MissileLauncher>();
     }
 
     void OnTriggerEnter(Collider other)
@@ -23,8 +23,8 @@ public class PlayerCollisions : MonoBehaviour
 
             if (_player.MaxShots == true)
             {
-            //    _player.LaserBeam.SetActive(value: true);
-                StartCoroutine(_player.TakeLauncherAway(18));
+                _player.LaserBeam.SetActive(value: true);
+                StartCoroutine(_player.TakeBeamAway(18));
             }
 
             if (_player.DoubleShots == true)

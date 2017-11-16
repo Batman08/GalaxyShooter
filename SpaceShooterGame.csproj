@@ -244,6 +244,7 @@
     <Compile Include="Assets\Asssets\Scripts\ShipControllers\PlayerCollisions.cs" />
     <Compile Include="Assets\Asssets\Scripts\ShipControllers\PlayerController.cs" />
     <Compile Include="Assets\Asssets\Scripts\WeaponControllers\ForceField.cs" />
+    <Compile Include="Assets\Asssets\Scripts\WeaponControllers\LaserBeam.cs" />
     <Compile Include="Assets\Asssets\Scripts\WeaponControllers\Missile.cs" />
     <Compile Include="Assets\Asssets\Scripts\WeaponControllers\MissileLauncher.cs" />
     <Compile Include="Assets\Asssets\Scripts\WeaponControllers\WeaponController.cs" />
