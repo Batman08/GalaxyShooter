@@ -32,33 +32,29 @@ public class MissileLauncher : MonoBehaviour
     {
         if (Target == null)
         {
-            if (UseLaser)
-            {
-                if (LineRenderer.enabled)
-                {
-                    LineRenderer.enabled = false;
-                    ImpactEffect.Stop();
-                }
-            }
-
+            //if (UseLaser)
+            //{
+            //    if (LineRenderer.enabled)
+            //    {
+            //        LineRenderer.enabled = false;
+            //        ImpactEffect.Stop();
+            //    }
+            //}
             return;
         }
 
         LockOnTarget();
 
-        if (UseLaser)
-        {
-            Laser();
-        }
+        //if (UseLaser)
+        //{
+        //    Laser();
+        //}
 
-        else
+        if (FireCountDown <= 0f)
         {
-            if (FireCountDown <= 0f)
-            {
-                UseLaser = false;
-                Shoot();
-                FireCountDown = 1f / FireRate;
-            }
+            UseLaser = false;
+            Shoot();
+            FireCountDown = 1f / FireRate;
         }
 
         FireCountDown -= Time.deltaTime;

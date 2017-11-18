@@ -53,12 +53,15 @@ public class GameManager : MonoBehaviour
     public int _generatePowerUp;
     private int _allHazards;
     private LivesManager _livesManager;
+    private PlayGameAd _ad;
+    private int randInt1, randInt2;
 
-    void Awake() /*TODO: Add red enemy ship*/
+    void Awake()
     {
         instance = this;
         _livesManager = GetComponent<LivesManager>();
         backGroundAudioSource = GetComponent<AudioSource>();
+        _ad = GetComponent<PlayGameAd>();
         restartBtn.SetActive(false);
         backBtn.SetActive(false);
         PauseMenu.SetActive(value: false);
@@ -67,6 +70,9 @@ public class GameManager : MonoBehaviour
         gameOverText.text = "";
         score = 0;
         Advertisement.Initialize("1567637");
+        randInt1 = UnityEngine.Random.Range(0, 5);
+        randInt2 = UnityEngine.Random.Range(0, 5);
+        Debug.Log(randInt1 + "-----" + randInt2);
     }
 
     void Start()
@@ -125,6 +131,9 @@ public class GameManager : MonoBehaviour
             TryMakeGameHarder();
             yield return new WaitForSeconds(waveWait);
             HideWaveCount();
+            randInt1 = UnityEngine.Random.Range(0, 5);
+            randInt2 = UnityEngine.Random.Range(0, 5);
+            Debug.Log(randInt1 + "-----" + randInt2);
         }
     }
 
@@ -249,5 +258,13 @@ public class GameManager : MonoBehaviour
         };
 
         Advertisement.Show("rewardedVideo", so);
+    }
+
+    public void PlayAd()
+    {
+        if (randInt1 == randInt2)
+        {
+            _ad.ShowNormalAd();
+        }
     }
 }
