@@ -131,8 +131,8 @@ public class GameManager : MonoBehaviour
             TryMakeGameHarder();
             yield return new WaitForSeconds(waveWait);
             HideWaveCount();
-            randInt1 = UnityEngine.Random.Range(0, 5);
-            randInt2 = UnityEngine.Random.Range(0, 5);
+            randInt1 = UnityEngine.Random.Range(0, 4);
+            randInt2 = UnityEngine.Random.Range(0, 4);
             Debug.Log(randInt1 + "-----" + randInt2);
         }
     }

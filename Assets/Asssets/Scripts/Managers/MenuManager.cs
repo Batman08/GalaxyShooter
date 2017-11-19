@@ -18,10 +18,10 @@ public class MenuManager : MonoBehaviour
         _ad = GetComponent<PlayAd>();
 
 
-        _num1 = Random.Range(0, 6);
-        _num2 = Random.Range(0, 6);
+        _num1 = Random.Range(0, 4);
+        _num2 = Random.Range(0, 4);
 
-        Debug.Log(_num1 + " " + _num2);
+        Debug.Log(_num1 + "-----" + _num2);
     }
 
     public void Play()
