@@ -7,7 +7,7 @@ public class MenuManager : MonoBehaviour
     public Text scoreText;
     public Text WaveText;
 
-    private PlayAd _ad;
+    //private PlayAd _ad;
     private int _num1;
     private int _num2;
 
@@ -15,7 +15,7 @@ public class MenuManager : MonoBehaviour
     {
         scoreText.text = PlayerPrefs.GetInt("score").ToString();
         WaveText.text = PlayerPrefs.GetInt("wave").ToString();
-        _ad = GetComponent<PlayAd>();
+        //_ad = GetComponent<PlayAd>();
 
 
         _num1 = Random.Range(0, 4);
@@ -26,16 +26,17 @@ public class MenuManager : MonoBehaviour
 
     public void Play()
     {
-        if (_num1 == _num2)
+        SceneManager.LoadScene(1);
+        /*if (_num1 == _num2)
         {
             _ad.ShowAd();
-            SceneManager.LoadScene(1);
+         
         }
 
         else
         {
             SceneManager.LoadScene(1);
-        }
+        }*/
     }
 
     public void Exit()

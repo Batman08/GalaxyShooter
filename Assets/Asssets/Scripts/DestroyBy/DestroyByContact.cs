@@ -82,7 +82,7 @@ public class DestroyByContact : MonoBehaviour
             Instantiate(explosion, transform.position, transform.rotation);
             if (PowerUps != null)
             {
-                if (RandomPowerUpNum == RandomPowerUpNum2/*gameController._generatePowerUp < RandomPowerUpNum && gameController._generatePowerUp > RandomPowerUpNum2 *//*gameController.hazards.Length*/)
+                if (/*RandomPowerUpNum == RandomPowerUpNum2*/gameController._generatePowerUp < RandomPowerUpNum && gameController._generatePowerUp > RandomPowerUpNum2 /*gameController.hazards.Length*/)
                 {
                     //MaxPowerUps -= 1;
                     Instantiate(PowerUps[RandomPowerUp], other.gameObject.transform.position, Quaternion.identity);

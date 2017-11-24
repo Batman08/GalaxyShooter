@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerCollisions : MonoBehaviour
 {
     private PlayerController _player;
+    private float takeAwayTime = 35f;
 
     void Start()
     {
@@ -40,10 +41,13 @@ public class PlayerCollisions : MonoBehaviour
 
         else if (MissilePowerUp)
         {
-            _player.PowerUpSound.Play();
-            _player.MissileLauncher.SetActive(value: true);
-            StartCoroutine(_player.TakeLauncherAway(18));
-            Destroy(other.gameObject);
+            if (_player.MissileLauncher != null)
+            {
+                _player.PowerUpSound.Play();
+                _player.MissileLauncher.SetActive(value: true);
+                StartCoroutine(_player.TakeLauncherAway(takeAwayTime));
+                Destroy(other.gameObject);
+            }
         }
 
         //void UpdateShotSpeed()
