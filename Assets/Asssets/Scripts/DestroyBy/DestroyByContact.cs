@@ -82,6 +82,7 @@ public class DestroyByContact : MonoBehaviour
             Instantiate(explosion, transform.position, transform.rotation);
             if (PowerUps != null)
             {
+                Destroy(other.gameObject);
                 if (/*RandomPowerUpNum == RandomPowerUpNum2*/gameController._generatePowerUp < RandomPowerUpNum && gameController._generatePowerUp > RandomPowerUpNum2 /*gameController.hazards.Length*/)
                 {
                     //MaxPowerUps -= 1;

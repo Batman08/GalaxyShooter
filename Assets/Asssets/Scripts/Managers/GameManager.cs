@@ -18,14 +18,13 @@ public class GameManager : MonoBehaviour
     public GameObject PauseButton;
     public GameObject backBtn;
     [Space]
-    //   public GameObject TouchPad;
-    [Space]
     [Header("Hazards Spawn Location")]
     public Vector3 spawnValues;
     [Space]
     public int hazardCount;
     [Space]
-    private int waveCount = 1;
+    [HideInInspector]
+    public int waveCount = 1;
     [Header("Increase Difficulty Of Game")]
     public int increaseDifficultyTime;
     public int increaseDifficultyHazards;
@@ -41,6 +40,8 @@ public class GameManager : MonoBehaviour
     public Text Wave;
     public Text waveNumber;
     public Text scoreText;
+    public GameObject EndWaveText;
+    public GameObject EndScoreText;
 
 
     private AudioSource backGroundAudioSource;
@@ -56,6 +57,8 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
+        EndWaveText.SetActive(value: false);
+        EndScoreText.SetActive(value: false);
         instance = this;
         //_livesManager = GetComponent<LivesManager>();
         backGroundAudioSource = GetComponent<AudioSource>();
@@ -183,6 +186,9 @@ public class GameManager : MonoBehaviour
         }
 
         gameOverText.text = "Game Over";
+        EndWaveText.SetActive(value: true);
+        EndScoreText.SetActive(value: true);
+        scoreText.enabled = false;
         restartBtn.SetActive(true);
         backBtn.SetActive(true);
         PauseButton.SetActive(value: false);
