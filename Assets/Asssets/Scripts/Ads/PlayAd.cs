@@ -2,7 +2,7 @@
 
 public class PlayAd : MonoBehaviour
 {
-
+    #region Unity_ADS_Code
     //    public void ShowAd()
     //    {
     //        if (Advertisement.IsReady())
@@ -30,4 +30,5 @@ public class PlayAd : MonoBehaviour
     //                break;
     //        }
     //    }
+    #endregion
 }

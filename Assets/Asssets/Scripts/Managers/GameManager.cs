@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour
         //Advertisement.Initialize("1567637");
         randInt1 = UnityEngine.Random.Range(0, 5);
         randInt2 = UnityEngine.Random.Range(0, 5);
-        Debug.Log(randInt1 + "-----" + randInt2);
+        //Debug.Log(randInt1 + "-----" + randInt2);
     }
 
     void Start()
@@ -139,7 +139,7 @@ public class GameManager : MonoBehaviour
 
     private void TryMakeGameHarder()
     {
-        int timePassed = (System.DateTime.Now - startTime).Seconds;
+        int timePassed = (DateTime.Now - startTime).Seconds;
 
         bool makeGameHarder = timePassed > increaseDifficultyTime;
 

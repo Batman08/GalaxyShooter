@@ -18,25 +18,24 @@ public class MenuManager : MonoBehaviour
         //_ad = GetComponent<PlayAd>();
 
 
-        _num1 = Random.Range(0, 4);
-        _num2 = Random.Range(0, 4);
+        _num1 = Random.Range(0, 3);
+        _num2 = Random.Range(0, 3);
 
         Debug.Log(_num1 + "-----" + _num2);
     }
 
     public void Play()
     {
-        SceneManager.LoadScene(1);
-        /*if (_num1 == _num2)
+        if (_num1 != _num2)
         {
-            _ad.ShowAd();
-         
+            AdManager.Instance.ShowVideo();
+            SceneManager.LoadScene(1);
         }
 
         else
         {
             SceneManager.LoadScene(1);
-        }*/
+        }
     }
 
     public void Exit()
